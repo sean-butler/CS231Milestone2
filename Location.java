@@ -1,4 +1,4 @@
-package Java_MIlestone_1;
+package ccp;
 
 public class Location {
 
@@ -7,123 +7,202 @@ public class Location {
 	private String optionSouth;
 	private String optionWest;
 	private String optionEast;
-	
-	public Location(String initialPosition) {
-		this.currentPosition = initialPosition;
-		optionNorth = "-";
-		optionSouth = "-";
-		optionWest = "-";
-		optionEast = "-";
-		
+
+	public String getCurrentPosition() {
+		return currentPosition;
 	}
 
-	public void move(String direction) {
-		String originalPosition = currentPosition;
-		
-		if(currentPosition.equals("Desert"))
+	public void setCurrentPosition(String currentPosition) {
+		this.currentPosition = currentPosition;
+	}
 
-		if (currentPosition.equalsIgnoreCase("S")) {
-			handleDesert0Move(direction);
+	public String getOptionNorth() {
+		return optionNorth;
+	}
 
-		}
+	public void setOptionNorth(String optionNorth) {
+		this.optionNorth = optionNorth;
+	}
 
-		else if (currentPosition.equalsIgnoreCase("N")) {
-			handleDesert1Move(direction);
-		}
+	public String getOptionSouth() {
+		return optionSouth;
+	}
 
-		else if (currentPosition.equalsIgnoreCase("W")) {
-			handleDesert2Move(direction);
-		}
+	public void setOptionSouth(String optionSouth) {
+		this.optionSouth = optionSouth;
+	}
 
-		else if (currentPosition.equalsIgnoreCase("E")) {
-			handleDesert3Move(direction);
-		}
-		
+	public String getOptionWest() {
+		return optionWest;
+	}
+
+	public void setOptionWest(String optionWest) {
+		this.optionWest = optionWest;
+	}
+
+	public String getOptionEast() {
+		return optionEast;
+	}
+
+	public void setOptionEast(String optionEast) {
+		this.optionEast = optionEast;
+	}
+
+	public Location(String currentposition) {
+		this.currentPosition = currentposition;
+		optionNorth = "Rock";
+		optionSouth = "Oasis";
+		optionWest = "There is nothing in that direction";
+		optionEast = "Hill";
 
 	}
 
-	private void handleDesert0Move(String direction) {
-		if (direction == "S") {
-			currentPosition = "Desert0";
-		}
-
-		if (direction == "N" || direction == "W" || direction == "E") {
+	public void handleDesertMove(String direction) {
+		if (direction.equals("W") || direction.equals("w")) {
 			currentPosition = "Desert";
-			System.out.println("You're still stuck in the middle of the desert");
-
-		}
-	}
-
-	private void handleDesert1Move(String direction) {
-		if (direction == "N") {
-			currentPosition = "Desert1";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "hmm so you're not moving";
 		}
 
-		if (direction == "S" || direction == "W" || direction == "E") {
-			currentPosition = "Desert";
-			System.out.println("You're still stuck in the middle of the desert");
-		}
-	}
-
-	private void handleDesert2Move(String direction) {
-		if (direction == "W") {
-			currentPosition = "Desert2";
+		if (direction.equals("N") || direction.equals("n")) {
+			currentPosition = "Rock";
+			optionNorth = "--";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "Desert";
 		}
 
-		if (direction == "S" || direction == "N" || direction == "E") {
-			currentPosition = "Desert";
-			System.out.println("You're still stuck in the middle of the desert");
-		}
-	}
-
-	private void handleDesert3Move(String direction) {
-		if (direction == "E") {
-			currentPosition = "Desert3";
+		if (direction.equals("E") || direction.equals("e")) {
+			currentPosition = "Hill";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "--";
+			optionWest = "Desert";
 		}
 
-		if (direction == "S" || direction == "N" || direction == "W") {
-			currentPosition = "Desert";
-			System.out.println("You're still stuck in the middle of the desert");
+		if (direction.equals("S") || direction.equals("s")) {
+			currentPosition = "Oasis";
+			optionNorth = "Rock";
+			optionSouth = "--";
+			optionEast = "Hill";
+			optionWest = "Desert";
+		}
+		System.out.println("............");
+		System.out.println("You have stumbled across a " + currentPosition);
+		System.out.println("");
+	}
+
+	public void handleRockMove(String direction) {
+		if (direction.equals("N") || direction.equals("n")) {
+			currentPosition = "Rock";
+			optionNorth = "--";
+			optionSouth = "I don't know but I think we're still stranded";
+			optionEast = "Hey, I think I see civilization up ahead";
+			optionWest = "I don't know but I think we're still stranded";
 		}
 
-	}
-	
-	private void setDesert0Options() {
-		optionNorth = "";
-		optionSouth = "";
-		optionEast = "";
-		optionWest = "";
-	}
-	
-	private void setDesert1Options() {
-		optionNorth = "";
-		optionSouth = "";
-		optionEast = "";
-		optionWest = "";
-	}
-	
-	private void setDesert2Options() {
-		optionNorth = "";
-		optionSouth = "";
-		optionEast = "";
-		optionWest = "";
-	}
-	
-	private void setDesert3Options() {
-		optionNorth = "";
-		optionSouth = "";
-		optionEast = "";
-		optionWest = "";
-	}
-
-	public void printCurrentOptions() {
-		System.out.println(" current location: " + currentPosition);
-
-		System.out.println(" option east: " + optionEast);
-		System.out.println(" option west: " + optionWest);
-		System.out.println(" option north: " + optionNorth);
-		System.out.println(" option south: " + optionSouth);
+		if (direction.equals("S") || direction.equals("s")) {
+			currentPosition = "Oasis";
+			optionNorth = "Rock";
+			optionSouth = "--";
+			optionEast = "Hill";
+			optionWest = "Desert";
+		}
 		
+		if(direction.equals("E") || direction.equals("e")) {
+			currentPosition = "Hill";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "--";
+			optionWest = "Desert";
+		}
+		
+		if(direction.equals("W") || direction.equals("w")) {
+			currentPosition = "Desert";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "--";
+		}
+		System.out.println("............");
+		System.out.println("You have stumbled across a " + currentPosition);
+		System.out.println("");
 	}
 
+	public void handleHillMove(String direction) {
+		if (direction.equals("E") || direction.equals("e")) {
+			currentPosition = "Hill";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "--";
+			optionWest = "Desert";
+		}
+
+		if (direction.equals("W") || direction.equals("w")) {
+			currentPosition = "Desert";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "--";
+		}
+		
+		if(direction.equals("N") || direction.equals("n")) {
+			currentPosition = "Rock";
+			optionNorth = "--";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "Desert";
+		}
+		
+		if(direction.equals("S") || direction.equals("s")) {
+			currentPosition = "Oasis";
+			optionNorth = "Rock";
+			optionSouth = "--";
+			optionEast = "Hill";
+			optionWest = "Desert";
+		}
+		System.out.println("............");
+		System.out.println("You have stumbled across a " + currentPosition);
+		System.out.println("");
+	}
+
+	public void handleOasisMove(String direction) {
+		if (direction.equals("S") || direction.equals("s")) {
+			currentPosition = "Oasis";
+			optionNorth = "Rock";
+			optionSouth = "--";
+			optionEast = "Hill";
+			optionWest = "Desert";
+		}
+
+		if (direction.equals("N") || direction.equals("n")) {
+			currentPosition = "Rock";
+			optionNorth = "--";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "Desert";
+		}
+		
+		if(direction.equals("E") || direction.equals("e")) {
+			currentPosition = "Hill";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "--";
+			optionWest = "Desert";
+		}
+		
+		if(direction.equals("W") || direction.equals("w")) {
+			currentPosition = "Desert";
+			optionNorth = "Rock";
+			optionSouth = "Oasis";
+			optionEast = "Hill";
+			optionWest = "--";
+		}
+		System.out.println("............");
+		System.out.println("You have stumbled across a " + currentPosition);
+		System.out.println("");
+
+	}
 }
