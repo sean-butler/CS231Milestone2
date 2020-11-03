@@ -8,15 +8,16 @@ public class User {
 	
 	private String name;
 	private Location location;
-	private ArrayList<String> items;
-	private int points = 0;
+	private List<Item> items;
+	private int score;
 
 	public User(String name) {
-		items = new ArrayList<>();
+		items = new ArrayList<Item>();
 		location = new Location(STARTING_POSITION);
 		this.name = name;
+		score = 0;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -29,41 +30,73 @@ public class User {
 		System.out.println("West: " + location.getOptionWest());
 	}
 
-	public void move(String direction, ScoreableItems items) {
-		checkForPointsOpp(direction, items);
+	//process command input
+	public void processCommand(String command, ScoreableItems items) {		
+		switch (command.toLowerCase()) {
+			case "i":
+				// show instructions
+				this.showInstructions();
+				break;
+			case "bag":
+				//show current bag
+				this.showItems();
+				break;
+			case "n": case "w": case "e": case "s":
+				this.move(command, items);
+				break;
+			default:
+				// if command is not any of the cases mentioned, then assume that user wants an item
+				String item = command;
+				this.getItem(item, items);
+		}
+	}
+	
+	// to show instructions for user
+	private void showInstructions() {
+		String instructions = "Instructions:\n";
+		instructions += "- Type a direction to move (N/E/S/W)\n";
+		instructions += "- Type <item's name> to get an item\n";
+		instructions += "- Type 'bag' to see all your items\n";
+		System.out.println(instructions);
+	}
+	
+	// move to direction: N/ S/ E/ W
+	private void move(String command, ScoreableItems items) {
+		Direction dir = null;
+		switch (command.toLowerCase()) {
+			case "n":
+				dir = Direction.NORTH;
+				break;
+			case "e":
+				dir = Direction.EAST;
+				break;
+			case "s":
+				dir = Direction.SOUTH;
+				break;
+			case "w":
+				dir = Direction.WEST;
+				break;
+		}
+		
 		if (getCurrentPosition().equals("Desert")) {
-			location.handleDesertMove(direction);
+			location.handleDesertMove(dir);
 		} else if (getCurrentPosition().equals("Rock")) {
-			location.handleRockMove(direction);
+			location.handleRockMove(dir);
 		} else if (getCurrentPosition().equals("Oasis")) {
-			location.handleHillMove(direction);
+			location.handleOasisMove(dir);
 		} else if (getCurrentPosition().equals("Hill")) {
-			location.handleOasisMove(direction);
+			location.handleHillMove(dir);
 		} else
 			System.out.print("Answer not found");
-
 	}
 	
-	public void checkForPointsOpp(String direction, ScoreableItems items) {
-		
-	}
-	
-	
-
-	public void handleDesertMove(String direction) {
-		location.handleDesertMove(direction);
-	}
-
-	public void handleRockMove(String direction) {
-		location.handleRockMove(direction);
-	}
-
-	public void handleOasisMove(String direction) {
-		location.handleHillMove(direction);
-	}
-
-	public void handleHillMove(String direction) {
-		location.handleOasisMove(direction);
+	//get item
+	private void getItem(String itemName, ScoreableItems items) {
+		Item itemGotten = items.getItem(itemName, location.getCurrentPosition());
+		if (!(itemGotten == null)) {
+			this.items.add(itemGotten);
+			this.score += itemGotten.getScore();
+		}
 	}
 
 	public String getCurrentPosition() {
@@ -105,5 +138,14 @@ public class User {
 	public void setOptionWest(String area) {
 		location.setOptionWest(area);
 	}
-
+	
+	// to show all items that user has
+	private void showItems() {
+		System.out.println("Items: ");
+		for (Item item : this.items) {
+			System.out.println("- " + item.getName());
+		}
+		System.out.println();
+	}
+	
 }

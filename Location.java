@@ -54,155 +54,135 @@ public class Location {
 		optionSouth = "Oasis";
 		optionWest = "There is nothing in that direction";
 		optionEast = "Hill";
-
 	}
-
-	public void handleDesertMove(String direction) {
-		if (direction.equals("W") || direction.equals("w")) {
-			currentPosition = "Desert";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "hmm so you're not moving";
+	
+	public void handleDesertMove(Direction dir) {
+		String oldPosition = currentPosition;
+		
+		switch (dir) {
+			case NORTH:
+				currentPosition = "Rock";
+				optionNorth = "--";
+				optionSouth = "Desert";
+				optionEast = "--";
+				optionWest = "--";
+				break;
+			case EAST:
+				currentPosition = "Hill";
+				optionNorth = "--";
+				optionSouth = "--";
+				optionEast = "--";
+				optionWest = "Desert";
+				break;
+			case SOUTH:
+				currentPosition = "Oasis";
+				optionNorth = "Desert";
+				optionSouth = "--";
+				optionEast = "--";
+				optionWest = "--";
+				break;
+			case WEST:
+				currentPosition = "Desert";
+				optionNorth = "Rock";
+				optionSouth = "Oasis";
+				optionEast = "Hill";
+				optionWest = "--";
+				break;
 		}
-
-		if (direction.equals("N") || direction.equals("n")) {
-			currentPosition = "Rock";
-			optionNorth = "--";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "Desert";
-		}
-
-		if (direction.equals("E") || direction.equals("e")) {
-			currentPosition = "Hill";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "--";
-			optionWest = "Desert";
-		}
-
-		if (direction.equals("S") || direction.equals("s")) {
-			currentPosition = "Oasis";
-			optionNorth = "Rock";
-			optionSouth = "--";
-			optionEast = "Hill";
-			optionWest = "Desert";
-		}
+		
+		// this part is repetitive with other methods -> write a separate method for this part.
 		System.out.println("............");
-		System.out.println("You have stumbled across a " + currentPosition);
+		if (!oldPosition.equals(currentPosition)) {
+			System.out.println("You have stumbled across a " + currentPosition);
+		} else {
+			System.out.println("You are still stuck there.");
+		}
+		System.out.println();
+	}
+	
+	public void handleRockMove(Direction dir) {
+		String oldPosition = currentPosition;
+		switch (dir) {
+			case NORTH: case EAST: case WEST:
+				currentPosition = "Rock";
+				optionNorth = "--";
+				optionSouth = "Desert";
+				optionEast = "--";
+				optionWest = "--";
+				break;		
+			case SOUTH:
+				currentPosition = "Desert";
+				optionNorth = "Rock";
+				optionSouth = "Oasis";
+				optionEast = "Hill";
+				optionWest = "--";
+				break;
+		}
+		
+		System.out.println("............");
+		if (!oldPosition.equals(currentPosition)) {
+			System.out.println("You have stumbled across a " + currentPosition);
+		} else {
+			System.out.println("You are still stuck there.");
+		}
+		
 		System.out.println("");
 	}
-
-	public void handleRockMove(String direction) {
-		if (direction.equals("N") || direction.equals("n")) {
-			currentPosition = "Rock";
-			optionNorth = "--";
-			optionSouth = "I don't know but I think we're still stranded";
-			optionEast = "Hey, I think I see civilization up ahead";
-			optionWest = "I don't know but I think we're still stranded";
-		}
-
-		if (direction.equals("S") || direction.equals("s")) {
-			currentPosition = "Oasis";
-			optionNorth = "Rock";
-			optionSouth = "--";
-			optionEast = "Hill";
-			optionWest = "Desert";
-		}
+	
+	public void handleHillMove(Direction dir) {
+		String oldPosition = currentPosition;
 		
-		if(direction.equals("E") || direction.equals("e")) {
-			currentPosition = "Hill";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "--";
-			optionWest = "Desert";
-		}
-		
-		if(direction.equals("W") || direction.equals("w")) {
-			currentPosition = "Desert";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "--";
+		switch (dir) {
+			case NORTH: case EAST: case SOUTH:
+				currentPosition = "Hill";
+				optionNorth = "--";
+				optionSouth = "--";
+				optionEast = "--";
+				optionWest = "Desert";
+				break;
+			case WEST:
+				currentPosition = "Desert";
+				optionNorth = "Rock";
+				optionSouth = "Oasis";
+				optionEast = "Hill";
+				optionWest = "--";
+				break;
 		}
 		System.out.println("............");
-		System.out.println("You have stumbled across a " + currentPosition);
+		if (!oldPosition.equals(currentPosition)) {
+			System.out.println("You have stumbled across a " + currentPosition);
+		} else {
+			System.out.println("You are still stuck at the " + currentPosition);
+		}
 		System.out.println("");
 	}
-
-	public void handleHillMove(String direction) {
-		if (direction.equals("E") || direction.equals("e")) {
-			currentPosition = "Hill";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "--";
-			optionWest = "Desert";
-		}
-
-		if (direction.equals("W") || direction.equals("w")) {
-			currentPosition = "Desert";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "--";
-		}
-		
-		if(direction.equals("N") || direction.equals("n")) {
-			currentPosition = "Rock";
-			optionNorth = "--";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "Desert";
-		}
-		
-		if(direction.equals("S") || direction.equals("s")) {
-			currentPosition = "Oasis";
-			optionNorth = "Rock";
-			optionSouth = "--";
-			optionEast = "Hill";
-			optionWest = "Desert";
+	
+	public void handleOasisMove(Direction dir) {
+		String oldPosition = currentPosition;
+		switch (dir) {
+			case EAST: case SOUTH: case WEST:
+				currentPosition = "Oasis";
+				optionNorth = "Desert";
+				optionSouth = "--";
+				optionEast = "--";
+				optionWest = "--";
+				break;
+			case NORTH:
+				currentPosition = "Desert";
+				optionNorth = "Rock";
+				optionSouth = "Oasis";
+				optionEast = "Hill";
+				optionWest = "--";
+				break;
 		}
 		System.out.println("............");
-		System.out.println("You have stumbled across a " + currentPosition);
+		if (!oldPosition.equals(currentPosition)) {
+			System.out.println("You have stumbled across a " + currentPosition);
+		} else {
+			System.out.println("You are still stuck at the " + currentPosition);
+		}
 		System.out.println("");
+		
 	}
 
-	public void handleOasisMove(String direction) {
-		if (direction.equals("S") || direction.equals("s")) {
-			currentPosition = "Oasis";
-			optionNorth = "Rock";
-			optionSouth = "--";
-			optionEast = "Hill";
-			optionWest = "Desert";
-		}
-
-		if (direction.equals("N") || direction.equals("n")) {
-			currentPosition = "Rock";
-			optionNorth = "--";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "Desert";
-		}
-		
-		if(direction.equals("E") || direction.equals("e")) {
-			currentPosition = "Hill";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "--";
-			optionWest = "Desert";
-		}
-		
-		if(direction.equals("W") || direction.equals("w")) {
-			currentPosition = "Desert";
-			optionNorth = "Rock";
-			optionSouth = "Oasis";
-			optionEast = "Hill";
-			optionWest = "--";
-		}
-		System.out.println("............");
-		System.out.println("You have stumbled across a " + currentPosition);
-		System.out.println("");
-
-	}
 }
