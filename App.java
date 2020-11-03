@@ -7,8 +7,8 @@ public class App {
 	static ScoreableItems caveItems;
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to the Colossal Desert Advernture!");
-		System.out.println("You are currently stranded in the desert and trying to make you're way home");
+		System.out.println("Welcome to the Colossal Desert Adventure!");
+		System.out.println("You are currently stranded in the desert and trying to make your way home");
 		System.out.println("");
 		
 		System.out.println("By the way, what's your name?");
@@ -18,21 +18,21 @@ public class App {
 		User player = new User(playerName);
 		System.out.println("Nice to meet you " + player.getName());
 		System.out.println("");
-
-		action(player);
+		action(player, caveItems);
+		
 		name.close();
-
 	}
 
-	public static void action(User player) {
+	public static void action(User player, ScoreableItems caveItems) {
 		Scanner playerChoice = new Scanner(System.in);
 		boolean flag = true;
+		String command;
 		while (flag) {
 			player.showCurrentOptions();
 			System.out.println("");
-			System.out.println("So where are we headed of to? ");
-			String direction = playerChoice.nextLine();
-			player.move(direction);
+			System.out.println("So what do you wanna do? (Type 'i' to get instructions)");
+			command = playerChoice.nextLine();
+			player.processCommand(command, caveItems);
 		}
 		playerChoice.close();
 	}
