@@ -1,10 +1,10 @@
-package ccp;
+package cca;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-	String STARTING_POSITION = "Desert";
+	Room STARTING_POSITION = Room.DESERT;
 	
 	private String name;
 	private Location location;
@@ -21,6 +21,10 @@ public class User {
 	public String getName() {
 		return name;
 	}
+	
+	public int getScore() {
+		return score;
+	}
 
 	public void showCurrentOptions() {
 		System.out.println("From " + location.getCurrentPosition() + ", " + "these are the following options:");
@@ -36,6 +40,10 @@ public class User {
 			case "i":
 				// show instructions
 				this.showInstructions();
+				break;
+				// show items @ current location
+			case "items":
+				items.displayCurrentItems(getCurrentPosition());
 				break;
 			case "bag":
 				//show current bag
@@ -55,6 +63,7 @@ public class User {
 	private void showInstructions() {
 		String instructions = "Instructions:\n";
 		instructions += "- Type a direction to move (N/E/S/W)\n";
+		instructions += "- Type 'items' to see the items available at your current location\n";
 		instructions += "- Type <item's name> to get an item\n";
 		instructions += "- Type 'bag' to see all your items\n";
 		System.out.println(instructions);
@@ -66,28 +75,22 @@ public class User {
 		switch (command.toLowerCase()) {
 			case "n":
 				dir = Direction.NORTH;
+				location.handleMove(getCurrentPosition(), dir);
 				break;
 			case "e":
 				dir = Direction.EAST;
+				location.handleMove(getCurrentPosition(), dir);
 				break;
 			case "s":
 				dir = Direction.SOUTH;
+				location.handleMove(getCurrentPosition(), dir);
 				break;
 			case "w":
 				dir = Direction.WEST;
+				location.handleMove(getCurrentPosition(), dir);
 				break;
 		}
 		
-		if (getCurrentPosition().equals("Desert")) {
-			location.handleDesertMove(dir);
-		} else if (getCurrentPosition().equals("Rock")) {
-			location.handleRockMove(dir);
-		} else if (getCurrentPosition().equals("Oasis")) {
-			location.handleOasisMove(dir);
-		} else if (getCurrentPosition().equals("Hill")) {
-			location.handleHillMove(dir);
-		} else
-			System.out.print("Answer not found");
 	}
 	
 	//get item
@@ -99,43 +102,43 @@ public class User {
 		}
 	}
 
-	public String getCurrentPosition() {
+	public Room getCurrentPosition() {
 		return location.getCurrentPosition();
 	}
 
-	public void setCurrentPosition(String area) {
+	public void setCurrentPosition(Room area) {
 		location.setCurrentPosition(area);
 	}
 
-	public String getOptionNorth() {
+	public Room getOptionNorth() {
 		return location.getOptionNorth();
 	}
 
-	public void setOptionNorth(String area) {
+	public void setOptionNorth(Room area) {
 		location.setOptionNorth(area);
 	}
 
-	public String getOptionSouth() {
+	public Room getOptionSouth() {
 		return location.getOptionSouth();
 	}
 
-	public void setOptionSouth(String area) {
+	public void setOptionSouth(Room area) {
 		location.setOptionSouth(area);
 	}
 
-	public String getOptionEast() {
+	public Room getOptionEast() {
 		return location.getOptionEast();
 	}
 
-	public void setOptionEast(String area) {
+	public void setOptionEast(Room area) {
 		location.setOptionEast(area);
 	}
 
-	public String getOptionWest() {
+	public Room getOptionWest() {
 		return location.getOptionWest();
 	}
 
-	public void setOptionWest(String area) {
+	public void setOptionWest(Room area) {
 		location.setOptionWest(area);
 	}
 	
@@ -147,5 +150,4 @@ public class User {
 		}
 		System.out.println();
 	}
-	
 }

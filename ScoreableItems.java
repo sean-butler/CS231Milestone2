@@ -1,4 +1,4 @@
-package ccp;
+package cca;
 
 import java.util.Set;
 import java.util.Iterator;
@@ -24,7 +24,7 @@ public class ScoreableItems {
 		items.add(new Item("chorizo", 20, "Rock"));
 	}
 	
-	public void displayCurrentItems(String location) {
+	public void displayCurrentItems(Room location) {
 		Iterator<Item> it = items.iterator();
 		System.out.println("Current available items here:");
 		Item thisItem;
@@ -36,7 +36,7 @@ public class ScoreableItems {
 		}
 	}
 	
-	public Item getItem(String name, String location) {
+	public Item getItem(String name, Room location) {
 		Item thisItem;
 		Iterator<Item> it = items.iterator();
 		while (it.hasNext()) {

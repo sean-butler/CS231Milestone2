@@ -1,4 +1,4 @@
-package ccp;
+package cca;
 
 public class Item {
 	private String name;    ///write name and score as const??
